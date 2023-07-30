@@ -1,5 +1,6 @@
 import sys
 from ting_file_management.file_management import txt_importer
+from ting_file_management.queue import Queue
 
 
 def process(path_file, instance):
@@ -27,8 +28,20 @@ def process(path_file, instance):
 
 
 def remove(instance):
-    """Aqui irá sua implementação"""
+    """essa função remove os primeiro elemento da fila passada a ela por
+    parametro"""
+
+    if not instance.queue:
+        sys.stdout.write('Não há elementos\n')
+        return None
+
+    ultimo_arquivo_processado = instance.dequeue()
+    path_file = ultimo_arquivo_processado['nome_do_arquivo']
+
+    sys.stdout.write(f'Arquivo {path_file} removido com sucesso\n')
 
 
 def file_metadata(instance, position):
     """Aqui irá sua implementação"""
+
+
