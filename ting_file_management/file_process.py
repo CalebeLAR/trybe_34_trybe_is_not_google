@@ -1,6 +1,5 @@
 import sys
 from ting_file_management.file_management import txt_importer
-# from ting_file_management.queue import Queue
 
 
 def process(path_file, instance):
@@ -14,17 +13,17 @@ def process(path_file, instance):
             return None
             break
 
-    dados_do_arquivo = txt_importer(path_file)
+    file_data = txt_importer(path_file)
 
     # monta um dicionario com o resultado
-    dicionario_com_resultado = {
+    result_dictionary = {
         'nome_do_arquivo': path_file,
-        'qtd_linhas': len(dados_do_arquivo),
-        'linhas_do_arquivo': dados_do_arquivo
-        }
+        'qtd_linhas': len(file_data),
+        'linhas_do_arquivo': file_data
+    }
 
-    instance.enqueue(dicionario_com_resultado)
-    sys.stdout.write(f'{dicionario_com_resultado}\n')
+    instance.enqueue(result_dictionary)
+    sys.stdout.write(f'{result_dictionary}\n')
 
 
 def remove(instance):
@@ -35,11 +34,19 @@ def remove(instance):
         sys.stdout.write('Não há elementos\n')
         return None
 
-    ultimo_arquivo_processado = instance.dequeue()
-    path_file = ultimo_arquivo_processado['nome_do_arquivo']
+    last_processed_file = instance.dequeue()
+    path_file = last_processed_file['nome_do_arquivo']
 
     sys.stdout.write(f'Arquivo {path_file} removido com sucesso\n')
 
 
 def file_metadata(instance, position):
-    """Aqui irá sua implementação"""
+    """essa função apresentar as informações superficiais de um arquivo
+    processado passando a posição dele por parametro"""
+
+    if position >= instance.length:
+        sys.stderr.write('Posição inválida\n')
+        return None
+
+    last_searched_file = instance.search(position)
+    sys.stdout.write(f'{last_searched_file}\n')
