@@ -1,7 +1,7 @@
 import pytest
 from ting_file_management.priority_queue import PriorityQueue
 
-mock_hight_priority = {'qtd_linhas': 4}
+mock_high_priority = {'qtd_linhas': 4}
 mock_regular_priority1 = {'qtd_linhas': 6}
 mock_regular_priority2 = {'qtd_linhas': 10}
 
@@ -14,22 +14,22 @@ def test_basic_priority_queueing():
     priorityQueue = PriorityQueue()
     assert len(priorityQueue) == 0
 
-    priorityQueue.is_priority(mock_hight_priority) is True
+    priorityQueue.is_priority(mock_high_priority) is True
     priorityQueue.is_priority(mock_regular_priority1) is False
 
     priorityQueue.enqueue(mock_regular_priority1)
-    priorityQueue.enqueue(mock_hight_priority)
+    priorityQueue.enqueue(mock_high_priority)
     priorityQueue.enqueue(mock_regular_priority2)
     assert len(priorityQueue) == 3
 
     # O teste rejeita implementações que tratam todos os elementos com a mesma
     # prioridade;
-    assert priorityQueue.dequeue() == mock_hight_priority
+    assert priorityQueue.dequeue() == mock_high_priority
     assert priorityQueue.search(0) == mock_regular_priority1
     assert priorityQueue.search(1) == mock_regular_priority2
 
-    priorityQueue.enqueue(mock_hight_priority)
-    assert priorityQueue.search(0) == mock_hight_priority
+    priorityQueue.enqueue(mock_high_priority)
+    assert priorityQueue.search(0) == mock_high_priority
     assert priorityQueue.search(1) == mock_regular_priority1
     assert priorityQueue.search(2) == mock_regular_priority2
 
