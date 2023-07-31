@@ -49,7 +49,8 @@ def search_by_word(word, instance):
         ocorrencias = []
         for index, line in enumerate(report['linhas_do_arquivo']):
             if linhas_e_conteudo_onde_tem_a_palavra(index, word, line):
-                new_line = linhas_e_conteudo_onde_tem_a_palavra(index, word, line)
+                new_line = linhas_e_conteudo_onde_tem_a_palavra(
+                    index, word, line)
                 ocorrencias.extend(new_line)
 
             result = {
